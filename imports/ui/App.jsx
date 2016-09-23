@@ -11,32 +11,30 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      ready: false,
-      steps: []
+      steps: [],
+      started: false
     };
-  }
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        ready: true
-      });
-    }, 1000);
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    if (!prevState.ready && this.state.ready) {
-      this.refs.joyride.start();
-    }
   }
 
   addStep(s) {
     if (!_.isArray(s)) s = [s];
     this.setState({
-      steps: (this.state.steps.concat(s))
+      steps: (this.state.steps.concat(this.refs.joyride.parseSteps(s)))
     }, () => {
-      this.refs.joyride.start();
+      if (!this.state.started) {
+        this.setState({
+          started: true
+        }, () => this.refs.joyride.start(true))
+      }
+
     });
+
+  }
+
+  joyrideCallback(e) {
+    if (e.type === 'finished') {
+      this.setState({started: false});
+    }
   }
 
   render() {
@@ -45,8 +43,8 @@ export default class App extends Component {
         <Joyride ref="joyride"
                  steps={this.state.steps}
                  showSkipButton={true}
-                 showStepsProgress={true}
                  type={'continuous'}
+                 callback={this.joyrideCallback.bind(this)}
                />
         <Todo addStep={this.addStep.bind(this)}/>
         <Paths addStep={this.addStep.bind(this)}/>

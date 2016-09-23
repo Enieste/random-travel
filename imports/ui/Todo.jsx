@@ -15,8 +15,7 @@ class Todo extends Component {
     super(props);
 
     this.state = {
-      hideCompleted: false,
-      stepShown: false
+      hideCompleted: false
     };
   }
   toggleHideCompleted() {
@@ -25,13 +24,7 @@ class Todo extends Component {
     });
   }
   addStep(s) {
-    if (!this.state.stepShown) {
-      this.props.addStep(s);
-      this.setState({
-        stepShown: true
-      });
-    }
-
+    this.props.addStep(s);
   }
   renderTasks() {
     let filteredTasks = this.props.tasks;

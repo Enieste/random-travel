@@ -4,6 +4,18 @@ import classnames from 'classnames';
 
 import { Tasks } from '../api/tasks.js';
 
+class PrivateButtonNotifier extends Component {
+
+  componentDidMount() {
+    setTimeout(this.props.mounted);
+  }
+
+  render() {
+    return this.props.children;
+  }
+
+}
+
 export default class Task extends Component {
   constructor(props) {
     super(props);
@@ -13,11 +25,6 @@ export default class Task extends Component {
   componentDidMount() {
     if (this.props.index === 0) {
       this.props.addStep([{
-        title: 'Public/Private ',
-        text: 'Click this button to change your task visibility to other users',
-        selector: '#' + this.toggleButtonId,
-        position: 'top'
-      }, {
         title: 'Delete task',
         text: 'Click "X" to delete task',
         selector: '#' + this.deleteButtonId,
@@ -38,6 +45,15 @@ export default class Task extends Component {
 
   togglePrivate() {
     Meteor.call('tasks.setPrivate', this.props.task._id, ! this.props.task.private);
+  }
+
+  privateButtonMounted() {
+    this.props.addStep({
+      title: 'Public/Private ',
+      text: 'Click this button to change your task visibility to other users',
+      selector: '#' + this.toggleButtonId,
+      position: 'top'
+    })
   }
 
   render() {
@@ -63,9 +79,9 @@ export default class Task extends Component {
         />
 
         { this.props.showPrivateButton ? (
-          <button id={this.toggleButtonId} className="toggle-private" onClick={this.togglePrivate.bind(this)}>
+          <PrivateButtonNotifier mounted={this.privateButtonMounted.bind(this)}><button id={this.toggleButtonId} className="toggle-private" onClick={this.togglePrivate.bind(this)}>
             { this.props.task.private ? 'Private' : 'Public' }
-          </button>
+          </button></PrivateButtonNotifier>
         ) : ''}
 
          <span className="text">

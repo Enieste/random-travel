@@ -24,8 +24,7 @@ export default class Paths extends Component {
         title: 'Path slider',
         text: 'Move slider to see how path is being drawn dynamically',
         selector: '#slider',
-        position: 'bottom',
-        trigger: '#slider'
+        position: 'bottom'
       });
       this.setState({tooltip: false});
     }
