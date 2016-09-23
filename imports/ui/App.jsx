@@ -42,7 +42,12 @@ export default class App extends Component {
   render() {
     return (
       <div className="app">
-        <Joyride ref="joyride" steps={this.state.steps} debug={false} joyrideType="continuous"/>
+        <Joyride ref="joyride"
+                 steps={this.state.steps}
+                 showSkipButton={true}
+                 showStepsProgress={true}
+                 type={'continuous'}
+               />
         <Todo addStep={this.addStep.bind(this)}/>
         <Paths addStep={this.addStep.bind(this)}/>
       </div>
