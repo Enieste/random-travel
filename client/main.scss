@@ -159,3 +159,20 @@ header .hide-completed {
 .invisible {
     visibility: hidden;
 }
+
+.about-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: white;
+    width: 15%;
+    height: 12%;
+    text-align: center;
+}
+
+.login-pass {
+    background: #d2edf4;
+    background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+    padding: 2px 2px 0 2px;
+    text-align: left;
+}

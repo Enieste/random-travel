@@ -4,6 +4,7 @@ import Joyride  from 'react-joyride';
 
 import Todo from './Todo';
 import Paths from './Paths';
+import About from './About';
 
 // App component - represents the whole app
 export default class App extends Component {
@@ -48,6 +49,7 @@ export default class App extends Component {
                />
         <Todo addStep={this.addStep.bind(this)}/>
         <Paths addStep={this.addStep.bind(this)}/>
+        <About/>
       </div>
     );
   }

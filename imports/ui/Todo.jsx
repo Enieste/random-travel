@@ -18,6 +18,16 @@ class Todo extends Component {
       hideCompleted: false
     };
   }
+
+  componentDidMount() {
+    this.addStep({
+      title: 'Welcome!',
+      text: 'To try app you can sign up or use login/password from the right container',
+      selector: '#sign-form',
+      position: 'bottom'
+    });
+  }
+
   toggleHideCompleted() {
     this.setState({
       hideCompleted: !this.state.hideCompleted
@@ -60,7 +70,9 @@ class Todo extends Component {
             />
             Hide Completed Tasks
           </label>
+          <div id="sign-form">
           <AccountsUIWrapper />
+            </div>
           { this.props.currentUser ?
             <AddTodoForm addStep={this.props.addStep} /> : ''
           }
