@@ -15,7 +15,9 @@ class Todo extends Component {
     super(props);
 
     this.state = {
-      hideCompleted: false
+      hideCompleted: false,
+      deleteTipShown: false,
+      privateTipShown: false
     };
   }
 
@@ -36,6 +38,10 @@ class Todo extends Component {
   addStep(s) {
     this.props.addStep(s);
   }
+  tipWasRendered(tip) {
+    const stateKey = {'delete': 'deleteTipShown', 'private': 'privateTipShown'}[tip];
+    this.setState({[stateKey]: true});
+  }
   renderTasks() {
     let filteredTasks = this.props.tasks;
     if (this.state.hideCompleted) {
@@ -52,6 +58,9 @@ class Todo extends Component {
           task={task}
           showPrivateButton={showPrivateButton}
           addStep={this.addStep.bind(this)}
+          deleteTipShown={this.state.deleteTipShown}
+          privateTipShown={this.state.privateTipShown}
+          tipWasRendered={this.tipWasRendered.bind(this)}
         />
       );
     });

@@ -23,15 +23,15 @@ export default class Task extends Component {
     this.toggleButtonId = _.uniqueId('toggle');
   }
   componentDidMount() {
-    if (this.props.index === 0) {
+    if (this.props.deleteTipShown === false) {
       this.props.addStep([{
         title: 'Delete task',
         text: 'Click "X" to delete task',
         selector: '#' + this.deleteButtonId,
         position: 'top'
       }]);
+      this.props.tipWasRendered('delete');
     }
-
   }
 
   toggleChecked() {
@@ -48,12 +48,15 @@ export default class Task extends Component {
   }
 
   privateButtonMounted() {
-    this.props.addStep({
-      title: 'Public/Private ',
-      text: 'Click this button to change your task visibility to other users',
-      selector: '#' + this.toggleButtonId,
-      position: 'top'
-    })
+    if (this.props.privateTipShown === false) {
+      this.props.addStep({
+        title: 'Public/Private ',
+        text: 'Click this button to change your task visibility to other users',
+        selector: '#' + this.toggleButtonId,
+        position: 'top'
+      });
+      this.props.tipWasRendered('private');
+    }
   }
 
   render() {
